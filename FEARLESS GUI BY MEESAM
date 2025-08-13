@@ -1,14 +1,25 @@
--- FEARLESS GUI (all-in-one)
+-- FEARLESS GUI (all-in-one with chat message)
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
--- remove previous copy
+-- Send chat message when GUI is executed
+local function sendChatMessage(msg)
+    local args = {
+        [1] = msg,
+        [2] = "All"
+    }
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+end
+sendChatMessage("TEAM FEARLESS!!! 🏴‍☠️")
+
+-- Remove previous copy
 do
     local x = PlayerGui:FindFirstChild("FEARLESS_GUI")
     if x then x:Destroy() end
 end
 
+-- GUI setup
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "FEARLESS_GUI"
 ScreenGui.ResetOnSpawn = false
@@ -44,6 +55,7 @@ CloseBtn.TextSize = 18
 CloseBtn.Parent = MainFrame
 Instance.new("UICorner", CloseBtn).CornerRadius = UDim.new(0, 10)
 
+-- Function to create buttons
 local function makeBtn(text, y, cb)
     local b = Instance.new("TextButton")
     b.Size = UDim2.new(0.8, 0, 0, 40)
@@ -59,22 +71,24 @@ local function makeBtn(text, y, cb)
     return b
 end
 
-makeBtn("FLY", 0.25, function()
+-- Buttons with working scripts
+makeBtn("FLY", 0.20, function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
 end)
 
-makeBtn("FLING", 0.45, function()
+makeBtn("FLING", 0.40, function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt"))()
 end)
 
-makeBtn("ORBIT PART", 0.65, function()
+makeBtn("ORBIT PART", 0.60, function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/chesslovers69/Super-ring-parts-v6/refs/heads/main/Bylukaslol"))()
 end)
 
-makeBtn("ADMIN'S GUI", 0.85, function()
+makeBtn("ADMIN'S GUI", 0.80, function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
 end)
 
+-- Close button toggle
 CloseBtn.MouseButton1Click:Connect(function()
     MainFrame.Visible = false
 end)
@@ -95,6 +109,7 @@ ToggleBtn.MouseButton1Click:Connect(function()
     MainFrame.Visible = not MainFrame.Visible
 end)
 
+-- Dragging
 local UIS = game:GetService("UserInputService")
 local dragging, dragInput, dragStart, startPos
 local function update(input)
