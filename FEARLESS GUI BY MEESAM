@@ -1,22 +1,12 @@
--- FEARLESS GUI (safe + chat message)
+-- FEARLESS GUI (safe load)
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
--- Try to send chat message (safe)
-pcall(function()
-    local chatEvent = ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents")
-    if chatEvent and chatEvent:FindFirstChild("SayMessageRequest") then
-        chatEvent.SayMessageRequest:FireServer("TEAM FEARLESS!!!", "All")
-    end
-end)
-
--- Remove old GUI if exists
-do
-    local old = PlayerGui:FindFirstChild("FEARLESS_GUI")
-    if old then old:Destroy() end
-end
+-- Remove old GUI
+local old = PlayerGui:FindFirstChild("FEARLESS_GUI")
+if old then old:Destroy() end
 
 -- ScreenGui
 local ScreenGui = Instance.new("ScreenGui")
@@ -58,7 +48,7 @@ CloseBtn.Parent = MainFrame
 Instance.new("UICorner", CloseBtn).CornerRadius = UDim.new(0, 10)
 
 -- Button Maker
-local function makeBtn(text, y, cb)
+local function makeBtn(text, y, url)
     local b = Instance.new("TextButton")
     b.Size = UDim2.new(0.8, 0, 0, 40)
     b.Position = UDim2.new(0.1, 0, y, 0)
@@ -69,26 +59,19 @@ local function makeBtn(text, y, cb)
     b.Text = text
     b.Parent = MainFrame
     Instance.new("UICorner", b).CornerRadius = UDim.new(0, 10)
-    b.MouseButton1Click:Connect(cb)
+    b.MouseButton1Click:Connect(function()
+        pcall(function()
+            loadstring(game:HttpGet(url))()
+        end)
+    end)
     return b
 end
 
 -- Buttons
-makeBtn("FLY", 0.25, function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
-end)
-
-makeBtn("FLING", 0.45, function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt"))()
-end)
-
-makeBtn("ORBIT PART", 0.65, function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/chesslovers69/Super-ring-parts-v6/refs/heads/main/Bylukaslol"))()
-end)
-
-makeBtn("ADMIN'S GUI", 0.85, function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
-end)
+makeBtn("FLY", 0.25, "https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt")
+makeBtn("FLING", 0.45, "https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt")
+makeBtn("ORBIT PART", 0.65, "https://raw.githubusercontent.com/chesslovers69/Super-ring-parts-v6/refs/heads/main/Bylukaslol")
+makeBtn("ADMIN'S GUI", 0.85, "https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau")
 
 -- Close GUI button
 CloseBtn.MouseButton1Click:Connect(function()
@@ -136,4 +119,12 @@ MainFrame.InputChanged:Connect(function(input)
 end)
 UIS.InputChanged:Connect(function(input)
     if input == dragInput and dragging then update(input) end
+end)
+
+-- Send chat message after GUI loads
+pcall(function()
+    local chatEvent = ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents")
+    if chatEvent and chatEvent:FindFirstChild("SayMessageRequest") then
+        chatEvent.SayMessageRequest:FireServer("TEAM FEARLESS!!!", "All")
+    end
 end)
