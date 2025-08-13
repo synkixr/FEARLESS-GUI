@@ -1,30 +1,28 @@
--- FEARLESS GUI (safe load)
+-- FEARLESS GUI (all-in-one)
 local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
--- Remove old GUI
-local old = PlayerGui:FindFirstChild("FEARLESS_GUI")
-if old then old:Destroy() end
+-- remove previous copy
+do
+    local x = PlayerGui:FindFirstChild("FEARLESS_GUI")
+    if x then x:Destroy() end
+end
 
--- ScreenGui
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "FEARLESS_GUI"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = PlayerGui
 
--- Main Frame
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 300, 0, 220)
-MainFrame.Position = UDim2.new(0.5, -150, 0.5, -110)
+MainFrame.Size = UDim2.new(0, 300, 0, 240)
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -120)
 MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 MainFrame.BorderSizePixel = 0
 MainFrame.Parent = ScreenGui
 Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 16)
 
--- Title
 local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(1, -40, 0, 34)
 Title.Position = UDim2.new(0, 10, 0, 6)
@@ -35,7 +33,16 @@ Title.Font = Enum.Font.GothamBold
 Title.TextSize = 22
 Title.Parent = MainFrame
 
--- Close button
+local Credit = Instance.new("TextLabel")
+Credit.Size = UDim2.new(1, -40, 0, 20)
+Credit.Position = UDim2.new(0, 10, 0, 36)
+Credit.BackgroundTransparency = 1
+Credit.Text = "Made by @synkixr"
+Credit.TextColor3 = Color3.fromRGB(200, 200, 200)
+Credit.Font = Enum.Font.Gotham
+Credit.TextSize = 14
+Credit.Parent = MainFrame
+
 local CloseBtn = Instance.new("TextButton")
 CloseBtn.Size = UDim2.new(0, 30, 0, 30)
 CloseBtn.Position = UDim2.new(1, -35, 0, 5)
@@ -47,8 +54,7 @@ CloseBtn.TextSize = 18
 CloseBtn.Parent = MainFrame
 Instance.new("UICorner", CloseBtn).CornerRadius = UDim.new(0, 10)
 
--- Button Maker
-local function makeBtn(text, y, url)
+local function makeBtn(text, y, cb)
     local b = Instance.new("TextButton")
     b.Size = UDim2.new(0.8, 0, 0, 40)
     b.Position = UDim2.new(0.1, 0, y, 0)
@@ -59,26 +65,30 @@ local function makeBtn(text, y, url)
     b.Text = text
     b.Parent = MainFrame
     Instance.new("UICorner", b).CornerRadius = UDim.new(0, 10)
-    b.MouseButton1Click:Connect(function()
-        pcall(function()
-            loadstring(game:HttpGet(url))()
-        end)
-    end)
+    b.MouseButton1Click:Connect(cb)
     return b
 end
 
--- Buttons
-makeBtn("FLY", 0.25, "https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt")
-makeBtn("FLING", 0.45, "https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt")
-makeBtn("ORBIT PART", 0.65, "https://raw.githubusercontent.com/chesslovers69/Super-ring-parts-v6/refs/heads/main/Bylukaslol")
-makeBtn("ADMIN'S GUI", 0.85, "https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau")
+makeBtn("FLY", 0.3, function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
+end)
 
--- Close GUI button
+makeBtn("FLING", 0.48, function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt"))()
+end)
+
+makeBtn("ORBIT PART", 0.66, function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/chesslovers69/Super-ring-parts-v6/refs/heads/main/Bylukaslol"))()
+end)
+
+makeBtn("ADMIN'S GUI", 0.84, function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
+end)
+
 CloseBtn.MouseButton1Click:Connect(function()
     MainFrame.Visible = false
 end)
 
--- Toggle button
 local ToggleBtn = Instance.new("TextButton")
 ToggleBtn.Name = "FEARLESS_Toggle"
 ToggleBtn.Size = UDim2.new(0, 44, 0, 44)
@@ -95,7 +105,7 @@ ToggleBtn.MouseButton1Click:Connect(function()
     MainFrame.Visible = not MainFrame.Visible
 end)
 
--- Drag system
+-- Dragging
 local UIS = game:GetService("UserInputService")
 local dragging, dragInput, dragStart, startPos
 local function update(input)
@@ -119,12 +129,4 @@ MainFrame.InputChanged:Connect(function(input)
 end)
 UIS.InputChanged:Connect(function(input)
     if input == dragInput and dragging then update(input) end
-end)
-
--- Send chat message after GUI loads
-pcall(function()
-    local chatEvent = ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents")
-    if chatEvent and chatEvent:FindFirstChild("SayMessageRequest") then
-        chatEvent.SayMessageRequest:FireServer("TEAM FEARLESS!!!", "All")
-    end
 end)
