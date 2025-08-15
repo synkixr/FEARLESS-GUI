@@ -1,4 +1,4 @@
--- FEARLESS GUI
+-- FEARLESS GUI (paged version)
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
@@ -16,8 +16,8 @@ ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = PlayerGui
 
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 300, 0, 340) -- taller for more spacing
-MainFrame.Position = UDim2.new(0.5, -150, 0.5, -170)
+MainFrame.Size = UDim2.new(0, 300, 0, 280)
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -140)
 MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 MainFrame.BorderSizePixel = 0
 MainFrame.Parent = ScreenGui
@@ -33,17 +33,6 @@ Title.Font = Enum.Font.GothamBold
 Title.TextSize = 22
 Title.Parent = MainFrame
 
--- Credit Text
-local Credit = Instance.new("TextLabel")
-Credit.Size = UDim2.new(1, -20, 0, 20)
-Credit.Position = UDim2.new(0, 10, 0, 36)
-Credit.BackgroundTransparency = 1
-Credit.Text = "Made by @synkixr"
-Credit.TextColor3 = Color3.fromRGB(200, 200, 200)
-Credit.Font = Enum.Font.Gotham
-Credit.TextSize = 14
-Credit.Parent = MainFrame
-
 local CloseBtn = Instance.new("TextButton")
 CloseBtn.Size = UDim2.new(0, 30, 0, 30)
 CloseBtn.Position = UDim2.new(1, -35, 0, 5)
@@ -55,6 +44,7 @@ CloseBtn.TextSize = 18
 CloseBtn.Parent = MainFrame
 Instance.new("UICorner", CloseBtn).CornerRadius = UDim.new(0, 10)
 
+-- Button creator
 local function makeBtn(text, y, cb)
     local b = Instance.new("TextButton")
     b.Size = UDim2.new(0.8, 0, 0, 40)
@@ -66,31 +56,85 @@ local function makeBtn(text, y, cb)
     b.Text = text
     b.Parent = MainFrame
     Instance.new("UICorner", b).CornerRadius = UDim.new(0, 10)
-    b.MouseButton1Click:Connect(cb)
+    if cb then b.MouseButton1Click:Connect(cb) end
     return b
 end
 
--- Increased Y values for spacing
-makeBtn("FLY", 0.25, function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
+-- Pages
+local pages = {}
+local currentPage = 1
+
+-- Page 1 buttons
+pages[1] = {
+    makeBtn("FLY", 0.2, function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
+    end),
+    makeBtn("FLING", 0.36, function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt"))()
+    end),
+    makeBtn("ORBIT PART", 0.52, function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/chesslovers69/Super-ring-parts-v6/refs/heads/main/Bylukaslol"))()
+    end),
+    makeBtn("ADMIN'S GUI", 0.68, function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
+    end),
+    makeBtn("BLACK HOLE", 0.84, function()
+        loadstring(game:HttpGet("PUT-YOUR-BLACKHOLE-LINK-HERE"))()
+    end)
+}
+
+-- Page 2 buttons
+pages[2] = {
+    makeBtn("NAMELESS ADMIN", 0.2, function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/NamelessAdmin.lua"))()
+    end),
+    makeBtn("SOON", 0.36),
+    makeBtn("SOON", 0.52),
+    makeBtn("SOON", 0.68)
+}
+
+-- Hide pages except first
+for _, page in pairs(pages[2]) do page.Visible = false end
+
+-- Arrows
+local LeftArrow = Instance.new("TextButton")
+LeftArrow.Size = UDim2.new(0, 40, 0, 30)
+LeftArrow.Position = UDim2.new(0.05, 0, 0.92, 0)
+LeftArrow.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
+LeftArrow.TextColor3 = Color3.new(1, 1, 1)
+LeftArrow.Text = "<"
+LeftArrow.Font = Enum.Font.GothamBold
+LeftArrow.TextSize = 18
+LeftArrow.Parent = MainFrame
+Instance.new("UICorner", LeftArrow).CornerRadius = UDim.new(0, 8)
+
+local RightArrow = Instance.new("TextButton")
+RightArrow.Size = UDim2.new(0, 40, 0, 30)
+RightArrow.Position = UDim2.new(0.85, 0, 0.92, 0)
+RightArrow.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
+RightArrow.TextColor3 = Color3.new(1, 1, 1)
+RightArrow.Text = ">"
+RightArrow.Font = Enum.Font.GothamBold
+RightArrow.TextSize = 18
+RightArrow.Parent = MainFrame
+Instance.new("UICorner", RightArrow).CornerRadius = UDim.new(0, 8)
+
+-- Page switching
+local function switchPage(pageNum)
+    for _, btn in pairs(pages[currentPage]) do btn.Visible = false end
+    for _, btn in pairs(pages[pageNum]) do btn.Visible = true end
+    currentPage = pageNum
+end
+
+LeftArrow.MouseButton1Click:Connect(function()
+    if currentPage > 1 then switchPage(currentPage - 1) end
 end)
 
-makeBtn("FLING", 0.38, function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt"))()
+RightArrow.MouseButton1Click:Connect(function()
+    if currentPage < #pages then switchPage(currentPage + 1) end
 end)
 
-makeBtn("ORBIT PART", 0.51, function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/chesslovers69/Super-ring-parts-v6/refs/heads/main/Bylukaslol"))()
-end)
-
-makeBtn("ADMIN'S GUI", 0.64, function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
-end)
-
-makeBtn("NAMELESS ADMIN", 0.77, function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))()
-end)
-
+-- Close & toggle
 CloseBtn.MouseButton1Click:Connect(function()
     MainFrame.Visible = false
 end)
