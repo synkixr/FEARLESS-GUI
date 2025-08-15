@@ -1,7 +1,8 @@
--- FEARLESS GUI (paged version)
+-- FEARLESS GUI (ALL IN ONE)
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+local RunService = game:GetService("RunService")
 
 -- remove previous copy
 do
@@ -18,10 +19,20 @@ ScreenGui.Parent = PlayerGui
 local MainFrame = Instance.new("Frame")
 MainFrame.Size = UDim2.new(0, 300, 0, 280)
 MainFrame.Position = UDim2.new(0.5, -150, 0.5, -140)
-MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+MainFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- lighter base
 MainFrame.BorderSizePixel = 0
 MainFrame.Parent = ScreenGui
 Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 16)
+
+-- RGB effect
+spawn(function()
+    while RunService.RenderStepped:Wait() do
+        local r = 50 + math.sin(tick())*10
+        local g = 50 + math.sin(tick()+2)*10
+        local b = 50 + math.sin(tick()+4)*10
+        MainFrame.BackgroundColor3 = Color3.fromRGB(r,g,b)
+    end
+end)
 
 local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(1, -40, 0, 34)
@@ -32,6 +43,16 @@ Title.TextColor3 = Color3.fromRGB(255, 0, 0)
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 22
 Title.Parent = MainFrame
+
+local Credit = Instance.new("TextLabel")
+Credit.Size = UDim2.new(1, -40, 0, 20)
+Credit.Position = UDim2.new(0, 10, 0, 36)
+Credit.BackgroundTransparency = 1
+Credit.Text = "Made by @synkixr"
+Credit.TextColor3 = Color3.fromRGB(200, 200, 200)
+Credit.Font = Enum.Font.Gotham
+Credit.TextSize = 14
+Credit.Parent = MainFrame
 
 local CloseBtn = Instance.new("TextButton")
 CloseBtn.Size = UDim2.new(0, 30, 0, 30)
@@ -49,7 +70,7 @@ local function makeBtn(text, y, cb)
     local b = Instance.new("TextButton")
     b.Size = UDim2.new(0.8, 0, 0, 40)
     b.Position = UDim2.new(0.1, 0, y, 0)
-    b.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
+    b.BackgroundColor3 = Color3.fromRGB(200, 70, 70)
     b.TextColor3 = Color3.new(1, 1, 1)
     b.Font = Enum.Font.GothamBold
     b.TextSize = 18
@@ -90,7 +111,8 @@ pages[2] = {
     end),
     makeBtn("SOON", 0.36),
     makeBtn("SOON", 0.52),
-    makeBtn("SOON", 0.68)
+    makeBtn("SOON", 0.68),
+    makeBtn("SOON", 0.84) -- 4th button
 }
 
 -- Hide pages except first
@@ -100,7 +122,7 @@ for _, page in pairs(pages[2]) do page.Visible = false end
 local LeftArrow = Instance.new("TextButton")
 LeftArrow.Size = UDim2.new(0, 40, 0, 30)
 LeftArrow.Position = UDim2.new(0.05, 0, 0.92, 0)
-LeftArrow.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
+LeftArrow.BackgroundColor3 = Color3.fromRGB(200, 70, 70)
 LeftArrow.TextColor3 = Color3.new(1, 1, 1)
 LeftArrow.Text = "<"
 LeftArrow.Font = Enum.Font.GothamBold
@@ -111,7 +133,7 @@ Instance.new("UICorner", LeftArrow).CornerRadius = UDim.new(0, 8)
 local RightArrow = Instance.new("TextButton")
 RightArrow.Size = UDim2.new(0, 40, 0, 30)
 RightArrow.Position = UDim2.new(0.85, 0, 0.92, 0)
-RightArrow.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
+RightArrow.BackgroundColor3 = Color3.fromRGB(200, 70, 70)
 RightArrow.TextColor3 = Color3.new(1, 1, 1)
 RightArrow.Text = ">"
 RightArrow.Font = Enum.Font.GothamBold
