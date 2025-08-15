@@ -1,4 +1,4 @@
--- FEARLESS GUI (all-in-one)
+-- FEARLESS GUI
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
@@ -16,8 +16,8 @@ ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = PlayerGui
 
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 300, 0, 240)
-MainFrame.Position = UDim2.new(0.5, -150, 0.5, -120)
+MainFrame.Size = UDim2.new(0, 300, 0, 340) -- taller for more spacing
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -170)
 MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 MainFrame.BorderSizePixel = 0
 MainFrame.Parent = ScreenGui
@@ -33,8 +33,9 @@ Title.Font = Enum.Font.GothamBold
 Title.TextSize = 22
 Title.Parent = MainFrame
 
+-- Credit Text
 local Credit = Instance.new("TextLabel")
-Credit.Size = UDim2.new(1, -40, 0, 20)
+Credit.Size = UDim2.new(1, -20, 0, 20)
 Credit.Position = UDim2.new(0, 10, 0, 36)
 Credit.BackgroundTransparency = 1
 Credit.Text = "Made by @synkixr"
@@ -69,20 +70,25 @@ local function makeBtn(text, y, cb)
     return b
 end
 
-makeBtn("FLY", 0.3, function()
+-- Increased Y values for spacing
+makeBtn("FLY", 0.25, function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
 end)
 
-makeBtn("FLING", 0.48, function()
+makeBtn("FLING", 0.38, function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt"))()
 end)
 
-makeBtn("ORBIT PART", 0.66, function()
+makeBtn("ORBIT PART", 0.51, function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/chesslovers69/Super-ring-parts-v6/refs/heads/main/Bylukaslol"))()
 end)
 
-makeBtn("ADMIN'S GUI", 0.84, function()
+makeBtn("ADMIN'S GUI", 0.64, function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
+end)
+
+makeBtn("NAMELESS ADMIN", 0.77, function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))()
 end)
 
 CloseBtn.MouseButton1Click:Connect(function()
