@@ -1,4 +1,4 @@
--- FEARLESS GUI (ALL IN ONE)
+-- FEARLESS GUI (paged version)
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
@@ -19,18 +19,19 @@ ScreenGui.Parent = PlayerGui
 local MainFrame = Instance.new("Frame")
 MainFrame.Size = UDim2.new(0, 300, 0, 280)
 MainFrame.Position = UDim2.new(0.5, -150, 0.5, -140)
-MainFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- lighter base
+MainFrame.BackgroundColor3 = Color3.fromRGB(60, 60, 60) -- lighter background
 MainFrame.BorderSizePixel = 0
 MainFrame.Parent = ScreenGui
 Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 16)
 
 -- RGB effect
 spawn(function()
-    while RunService.RenderStepped:Wait() do
-        local r = 50 + math.sin(tick())*10
-        local g = 50 + math.sin(tick()+2)*10
-        local b = 50 + math.sin(tick()+4)*10
+    while true do
+        local r = (math.sin(tick())/2 + 0.5) * 80 + 60
+        local g = (math.sin(tick()+2)/2 + 0.5) * 80 + 60
+        local b = (math.sin(tick()+4)/2 + 0.5) * 80 + 60
         MainFrame.BackgroundColor3 = Color3.fromRGB(r,g,b)
+        RunService.RenderStepped:Wait()
     end
 end)
 
@@ -70,7 +71,7 @@ local function makeBtn(text, y, cb)
     local b = Instance.new("TextButton")
     b.Size = UDim2.new(0.8, 0, 0, 40)
     b.Position = UDim2.new(0.1, 0, y, 0)
-    b.BackgroundColor3 = Color3.fromRGB(200, 70, 70)
+    b.BackgroundColor3 = Color3.fromRGB(200, 60, 60) -- brighter red
     b.TextColor3 = Color3.new(1, 1, 1)
     b.Font = Enum.Font.GothamBold
     b.TextSize = 18
@@ -100,19 +101,19 @@ pages[1] = {
         loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
     end),
     makeBtn("BLACK HOLE", 0.84, function()
-        loadstring(game:HttpGet("PUT-YOUR-BLACKHOLE-LINK-HERE"))()
+        loadstring(game:HttpGet("https://pastebin.com/raw/Ax87RCd5"))()
     end)
 }
 
 -- Page 2 buttons
 pages[2] = {
     makeBtn("NAMELESS ADMIN", 0.2, function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/NamelessAdmin.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))()
     end),
     makeBtn("SOON", 0.36),
     makeBtn("SOON", 0.52),
     makeBtn("SOON", 0.68),
-    makeBtn("SOON", 0.84) -- 4th button
+    makeBtn("SOON", 0.84)
 }
 
 -- Hide pages except first
@@ -122,7 +123,7 @@ for _, page in pairs(pages[2]) do page.Visible = false end
 local LeftArrow = Instance.new("TextButton")
 LeftArrow.Size = UDim2.new(0, 40, 0, 30)
 LeftArrow.Position = UDim2.new(0.05, 0, 0.92, 0)
-LeftArrow.BackgroundColor3 = Color3.fromRGB(200, 70, 70)
+LeftArrow.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
 LeftArrow.TextColor3 = Color3.new(1, 1, 1)
 LeftArrow.Text = "<"
 LeftArrow.Font = Enum.Font.GothamBold
@@ -133,7 +134,7 @@ Instance.new("UICorner", LeftArrow).CornerRadius = UDim.new(0, 8)
 local RightArrow = Instance.new("TextButton")
 RightArrow.Size = UDim2.new(0, 40, 0, 30)
 RightArrow.Position = UDim2.new(0.85, 0, 0.92, 0)
-RightArrow.BackgroundColor3 = Color3.fromRGB(200, 70, 70)
+RightArrow.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
 RightArrow.TextColor3 = Color3.new(1, 1, 1)
 RightArrow.Text = ">"
 RightArrow.Font = Enum.Font.GothamBold
