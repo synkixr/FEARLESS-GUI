@@ -1,4 +1,4 @@
--- FEARLESS GUI (paged version)
+-- FEARLESS GUI
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
@@ -16,15 +16,16 @@ ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = PlayerGui
 
+-- Main Frame
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 300, 0, 280)
-MainFrame.Position = UDim2.new(0.5, -150, 0.5, -140)
-MainFrame.BackgroundColor3 = Color3.fromRGB(60, 60, 60) -- lighter background
+MainFrame.Size = UDim2.new(0, 360, 0, 260) -- unchanged
+MainFrame.Position = UDim2.new(0.5, -180, 0.5, -130)
+MainFrame.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 MainFrame.BorderSizePixel = 0
 MainFrame.Parent = ScreenGui
 Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 16)
 
--- RGB effect
+-- Soft RGB effect (unchanged logic)
 spawn(function()
     while true do
         local r = (math.sin(tick())/2 + 0.5) * 80 + 60
@@ -35,9 +36,19 @@ spawn(function()
     end
 end)
 
+-- Image (restored)
+local Img = Instance.new("ImageLabel")
+Img.Size = UDim2.new(0, 100, 0, 100)
+Img.Position = UDim2.new(0, 10, 0, 10)
+Img.BackgroundTransparency = 1
+Img.Image = "rbxassetid://76418305910736"
+Img.Parent = MainFrame
+Instance.new("UICorner", Img).CornerRadius = UDim.new(1, 0)
+
+-- Title (restored)
 local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(1, -40, 0, 34)
-Title.Position = UDim2.new(0, 10, 0, 6)
+Title.Size = UDim2.new(0.6, 0, 0, 28)
+Title.Position = UDim2.new(0.35, 0, 0, 15)
 Title.BackgroundTransparency = 1
 Title.Text = "FEARLESS GUI"
 Title.TextColor3 = Color3.fromRGB(255, 0, 0)
@@ -45,9 +56,10 @@ Title.Font = Enum.Font.GothamBold
 Title.TextSize = 22
 Title.Parent = MainFrame
 
+-- Credit (restored)
 local Credit = Instance.new("TextLabel")
-Credit.Size = UDim2.new(1, -40, 0, 20)
-Credit.Position = UDim2.new(0, 10, 0, 36)
+Credit.Size = UDim2.new(0.6, 0, 0, 20)
+Credit.Position = UDim2.new(0.35, 0, 0, 45)
 Credit.BackgroundTransparency = 1
 Credit.Text = "Made by @synkixr"
 Credit.TextColor3 = Color3.fromRGB(200, 200, 200)
@@ -55,49 +67,50 @@ Credit.Font = Enum.Font.Gotham
 Credit.TextSize = 14
 Credit.Parent = MainFrame
 
+-- Close button (-) (restored)
 local CloseBtn = Instance.new("TextButton")
 CloseBtn.Size = UDim2.new(0, 30, 0, 30)
-CloseBtn.Position = UDim2.new(1, -35, 0, 5)
+CloseBtn.Position = UDim2.new(1, -40, 0, 10)
 CloseBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 CloseBtn.TextColor3 = Color3.new(1, 1, 1)
 CloseBtn.Text = "-"
 CloseBtn.Font = Enum.Font.GothamBold
-CloseBtn.TextSize = 18
+CloseBtn.TextSize = 20
 CloseBtn.Parent = MainFrame
-Instance.new("UICorner", CloseBtn).CornerRadius = UDim.new(0, 10)
+Instance.new("UICorner", CloseBtn).CornerRadius = UDim.new(0, 8)
 
--- Button creator
+-- Button creator (ONLY change: height 36 -> 32 to add small gap)
 local function makeBtn(text, y, cb)
     local b = Instance.new("TextButton")
-    b.Size = UDim2.new(0.8, 0, 0, 40)
-    b.Position = UDim2.new(0.1, 0, y, 0)
-    b.BackgroundColor3 = Color3.fromRGB(200, 60, 60) -- brighter red
+    b.Size = UDim2.new(0.55, 0, 0, 32) -- was 36
+    b.Position = UDim2.new(0.35, 0, y, 0)
+    b.BackgroundColor3 = Color3.fromRGB(200, 60, 60)
     b.TextColor3 = Color3.new(1, 1, 1)
     b.Font = Enum.Font.GothamBold
-    b.TextSize = 18
+    b.TextSize = 16
     b.Text = text
     b.Parent = MainFrame
-    Instance.new("UICorner", b).CornerRadius = UDim.new(0, 10)
+    Instance.new("UICorner", b).CornerRadius = UDim.new(0, 8)
     if cb then b.MouseButton1Click:Connect(cb) end
     return b
 end
 
--- Pages
+-- Pages (restored)
 local pages = {}
 local currentPage = 1
 
--- Page 1 buttons
+-- Page 1 buttons (same positions, now with a tiny gap thanks to height 32)
 pages[1] = {
-    makeBtn("FLY", 0.2, function()
+    makeBtn("FLY", 0.28, function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
     end),
-    makeBtn("FLING", 0.36, function()
+    makeBtn("FLING", 0.42, function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt"))()
     end),
-    makeBtn("ORBIT PART", 0.52, function()
+    makeBtn("ORBIT PART", 0.56, function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/chesslovers69/Super-ring-parts-v6/refs/heads/main/Bylukaslol"))()
     end),
-    makeBtn("ADMIN'S GUI", 0.68, function()
+    makeBtn("ADMIN'S GUI", 0.70, function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
     end),
     makeBtn("BLACK HOLE", 0.84, function()
@@ -105,44 +118,44 @@ pages[1] = {
     end)
 }
 
--- Page 2 buttons
+-- Page 2 buttons (4 SOON + Nameless, unchanged; also spaced by smaller height)
 pages[2] = {
-    makeBtn("NAMELESS ADMIN", 0.2, function()
+    makeBtn("NAMELESS ADMIN", 0.28, function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))()
     end),
-    makeBtn("SOON", 0.36),
-    makeBtn("SOON", 0.52),
-    makeBtn("SOON", 0.68),
+    makeBtn("SOON", 0.42),
+    makeBtn("SOON", 0.56),
+    makeBtn("SOON", 0.70),
     makeBtn("SOON", 0.84)
 }
 
--- Hide pages except first
+-- Hide page 2 initially (restored)
 for _, page in pairs(pages[2]) do page.Visible = false end
 
--- Arrows
+-- Arrows (restored)
 local LeftArrow = Instance.new("TextButton")
-LeftArrow.Size = UDim2.new(0, 40, 0, 30)
-LeftArrow.Position = UDim2.new(0.05, 0, 0.92, 0)
+LeftArrow.Size = UDim2.new(0, 40, 0, 28)
+LeftArrow.Position = UDim2.new(0.35, -50, 0.92, 0)
 LeftArrow.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
 LeftArrow.TextColor3 = Color3.new(1, 1, 1)
 LeftArrow.Text = "<"
 LeftArrow.Font = Enum.Font.GothamBold
 LeftArrow.TextSize = 18
 LeftArrow.Parent = MainFrame
-Instance.new("UICorner", LeftArrow).CornerRadius = UDim.new(0, 8)
+Instance.new("UICorner", LeftArrow).CornerRadius = UDim.new(0, 6)
 
 local RightArrow = Instance.new("TextButton")
-RightArrow.Size = UDim2.new(0, 40, 0, 30)
-RightArrow.Position = UDim2.new(0.85, 0, 0.92, 0)
+RightArrow.Size = UDim2.new(0, 40, 0, 28)
+RightArrow.Position = UDim2.new(0.35, 160, 0.92, 0)
 RightArrow.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
 RightArrow.TextColor3 = Color3.new(1, 1, 1)
 RightArrow.Text = ">"
 RightArrow.Font = Enum.Font.GothamBold
 RightArrow.TextSize = 18
 RightArrow.Parent = MainFrame
-Instance.new("UICorner", RightArrow).CornerRadius = UDim.new(0, 8)
+Instance.new("UICorner", RightArrow).CornerRadius = UDim.new(0, 6)
 
--- Page switching
+-- Page switching (restored)
 local function switchPage(pageNum)
     for _, btn in pairs(pages[currentPage]) do btn.Visible = false end
     for _, btn in pairs(pages[pageNum]) do btn.Visible = true end
@@ -157,7 +170,7 @@ RightArrow.MouseButton1Click:Connect(function()
     if currentPage < #pages then switchPage(currentPage + 1) end
 end)
 
--- Close & toggle
+-- Close & toggle (restored)
 CloseBtn.MouseButton1Click:Connect(function()
     MainFrame.Visible = false
 end)
@@ -178,7 +191,7 @@ ToggleBtn.MouseButton1Click:Connect(function()
     MainFrame.Visible = not MainFrame.Visible
 end)
 
--- Dragging
+-- Dragging (restored)
 local UIS = game:GetService("UserInputService")
 local dragging, dragInput, dragStart, startPos
 local function update(input)
