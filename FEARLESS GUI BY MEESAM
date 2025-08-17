@@ -119,7 +119,7 @@ pages[1] = {
     end)
 }
 
--- Page 2 buttons (same spacing applied)
+-- Page 2 buttons (same spacing applied)  << ONLY CHANGES HERE >>
 pages[2] = {
     makeBtn("NAMELESS ADMIN", 0.27, function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))()
@@ -130,7 +130,9 @@ pages[2] = {
     makeBtn("C00LKIDD GUI", 0.57, function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/cfsmi2/c00lguiv1/refs/heads/main/Main.lua", true))();
     end),
-    makeBtn("SOON", 0.72),
+    makeBtn("FE SCRIPTS\n@SYPCERR", 0.72, function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/sypcerr/FECollection/refs/heads/main/script.lua",true))()
+    end),
     makeBtn("SOON", 0.87)
 }
 
