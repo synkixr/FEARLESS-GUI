@@ -1,4 +1,4 @@
--- FEARLESS GUI (ALL IN ONE GUI)
+-- FEARLESS GUI (Final Version)
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
@@ -17,7 +17,7 @@ ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = PlayerGui
 
--- Main Frame (unchanged size/position)
+-- Main Frame
 local MainFrame = Instance.new("Frame")
 MainFrame.Size = UDim2.new(0, 360, 0, 260)
 MainFrame.Position = UDim2.new(0.5, -180, 0.5, -130)
@@ -26,7 +26,7 @@ MainFrame.BorderSizePixel = 0
 MainFrame.Parent = ScreenGui
 Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 16)
 
--- RGB effect (kept as your version but left as-is)
+-- RGB effect
 spawn(function()
     while true do
         local r = (math.sin(tick())/2 + 0.5) * 80 + 60
@@ -37,7 +37,7 @@ spawn(function()
     end
 end)
 
--- Image (unchanged)
+-- Image
 local Img = Instance.new("ImageLabel")
 Img.Size = UDim2.new(0, 100, 0, 100)
 Img.Position = UDim2.new(0, 10, 0, 10)
@@ -46,7 +46,7 @@ Img.Image = "rbxassetid://76418305910736"
 Img.Parent = MainFrame
 Instance.new("UICorner", Img).CornerRadius = UDim.new(1, 0)
 
--- Title & Credit (unchanged)
+-- Title & Credit
 local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(0.6, 0, 0, 28)
 Title.Position = UDim2.new(0.35, 0, 0, 15)
@@ -67,7 +67,7 @@ Credit.Font = Enum.Font.Gotham
 Credit.TextSize = 14
 Credit.Parent = MainFrame
 
--- Close button (unchanged)
+-- Close button
 local CloseBtn = Instance.new("TextButton")
 CloseBtn.Size = UDim2.new(0, 30, 0, 30)
 CloseBtn.Position = UDim2.new(1, -40, 0, 10)
@@ -79,11 +79,10 @@ CloseBtn.TextSize = 20
 CloseBtn.Parent = MainFrame
 Instance.new("UICorner", CloseBtn).CornerRadius = UDim.new(0, 8)
 
--- makeBtn: SMALL, NARROW, and kept centered at same X to preserve look
--- ONLY sizing/spacing changes are here (width -> 0.50, height -> 32)
+-- Button creation function
 local function makeBtn(text, y, cb)
     local b = Instance.new("TextButton")
-    b.Size = UDim2.new(0.50, 0, 0, 32)  -- changed: slightly narrower and shorter for spacing
+    b.Size = UDim2.new(0.50, 0, 0, 32)
     b.Position = UDim2.new(0.35, 0, y, 0)
     b.BackgroundColor3 = Color3.fromRGB(200, 60, 60)
     b.TextColor3 = Color3.new(1, 1, 1)
@@ -96,11 +95,11 @@ local function makeBtn(text, y, cb)
     return b
 end
 
--- Pages (kept structure)
+-- Pages
 local pages = {}
 local currentPage = 1
 
--- Page 1 buttons: vertical positions nudged for clearer spacing
+-- Page 1 buttons
 pages[1] = {
     makeBtn("FLY", 0.27, function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
@@ -119,12 +118,16 @@ pages[1] = {
     end)
 }
 
--- Page 2 buttons (same spacing applied)
+-- Page 2 buttons with SS EXECUTER loadstring
 pages[2] = {
     makeBtn("NAMELESS ADMIN", 0.27, function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))()
     end),
-    makeBtn("SOON", 0.42),
+    
+    makeBtn("SS EXECUTER\n@COOLMAN", 0.42, function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/eggmancoolegg/legendary-telegram/refs/heads/main/Ajaja"))();
+    end),
+    
     makeBtn("SOON", 0.57),
     makeBtn("SOON", 0.72),
     makeBtn("SOON", 0.87)
@@ -133,10 +136,10 @@ pages[2] = {
 -- Hide page 2 initially
 for _, btn in pairs(pages[2]) do btn.Visible = false end
 
--- Page arrows: moved OUTWARDS (left = 20px, right = 312px) so they do NOT collide horizontally with centered buttons
+-- Page arrows
 local LeftArrow = Instance.new("TextButton")
 LeftArrow.Size = UDim2.new(0, 40, 0, 28)
-LeftArrow.Position = UDim2.new(0, 20, 0.92, 0)    -- far left inside frame
+LeftArrow.Position = UDim2.new(0, 20, 0.92, 0)
 LeftArrow.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
 LeftArrow.TextColor3 = Color3.new(1, 1, 1)
 LeftArrow.Text = "<"
@@ -147,7 +150,7 @@ Instance.new("UICorner", LeftArrow).CornerRadius = UDim.new(0, 6)
 
 local RightArrow = Instance.new("TextButton")
 RightArrow.Size = UDim2.new(0, 40, 0, 28)
-RightArrow.Position = UDim2.new(0, 312, 0.92, 0)   -- far right inside frame (keeps distance from buttons)
+RightArrow.Position = UDim2.new(0, 312, 0.92, 0)
 RightArrow.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
 RightArrow.TextColor3 = Color3.new(1, 1, 1)
 RightArrow.Text = ">"
@@ -156,7 +159,7 @@ RightArrow.TextSize = 18
 RightArrow.Parent = MainFrame
 Instance.new("UICorner", RightArrow).CornerRadius = UDim.new(0, 6)
 
--- Page switching: same logic
+-- Page switching
 local function switchPage(pageNum)
     if pageNum < 1 or pageNum > #pages then return end
     for _, btn in pairs(pages[currentPage]) do btn.Visible = false end
@@ -172,7 +175,7 @@ RightArrow.MouseButton1Click:Connect(function()
     if currentPage < #pages then switchPage(currentPage + 1) end
 end)
 
--- Close & Toggle (unchanged)
+-- Close & Toggle
 CloseBtn.MouseButton1Click:Connect(function()
     MainFrame.Visible = false
 end)
@@ -193,7 +196,7 @@ ToggleBtn.MouseButton1Click:Connect(function()
     MainFrame.Visible = not MainFrame.Visible
 end)
 
--- Dragging (unchanged)
+-- Dragging
 local dragging, dragInput, dragStart, startPos
 local function update(input)
     local d = input.Position - dragStart
@@ -218,7 +221,7 @@ UIS.InputChanged:Connect(function(input)
     if input == dragInput and dragging then update(input) end
 end)
 
--- KEEP the brighter HSV RGB background loop if you want (kept from your version)
+-- HSV background loop
 local hue = 0
 RunService.RenderStepped:Connect(function()
     hue = (hue + 0.003) % 1
