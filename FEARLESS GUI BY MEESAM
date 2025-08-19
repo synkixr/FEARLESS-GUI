@@ -1,12 +1,13 @@
 local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 local RunService = game:GetService("RunService")
 local UIS = game:GetService("UserInputService")
 
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
 do
-    local x = PlayerGui:FindFirstChild("FEARLESS_GUI")
-    if x then x:Destroy() end
+    local prev = PlayerGui:FindFirstChild("FEARLESS_GUI")
+    if prev then prev:Destroy() end
 end
 
 local ScreenGui = Instance.new("ScreenGui")
@@ -126,13 +127,31 @@ pages[2] = {
     makeBtn("C00LKIDD GUI", 0.57, function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/cfsmi2/c00lguiv1/refs/heads/main/Main.lua", true))();
     end),
-    makeBtn("FE SCRIPTS\n@SYPCERR", 0.72, function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/sypcerr/FECollection/refs/heads/main/script.lua",true))()
+    (function()
+        local b = makeBtn("FE SCRIPTS\n@SYPCERR", 0.72, function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/sypcerr/FECollection/refs/heads/main/script.lua",true))()
+        end)
+        b.TextWrapped = true
+        b.TextSize = 14
+        return b
+    end)(),
+    makeBtn("FAKE LAG FE", 0.87, function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/RENZXW/RENZXW-SCRIPTS/main/fakeLAGRENZXW.txt"))()
+    end)
+}
+
+pages[3] = {
+    makeBtn("UGC EMOTES", 0.27, function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/1nJD7PkH", true))()
     end),
+    makeBtn("SOON", 0.42),
+    makeBtn("SOON", 0.57),
+    makeBtn("SOON", 0.72),
     makeBtn("SOON", 0.87)
 }
 
 for _, btn in pairs(pages[2]) do btn.Visible = false end
+for _, btn in pairs(pages[3]) do btn.Visible = false end
 
 local LeftArrow = Instance.new("TextButton")
 LeftArrow.Size = UDim2.new(0, 40, 0, 28)
