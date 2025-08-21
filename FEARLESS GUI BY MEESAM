@@ -51,16 +51,20 @@ Title.TextColor3 = Color3.fromRGB(255, 0, 0)
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 22
 Title.Parent = MainFrame
+Title.TextStrokeTransparency = 0
+Title.TextStrokeColor3 = Color3.new(0,0,0)
 
 local Credit = Instance.new("TextLabel")
 Credit.Size = UDim2.new(0.6, 0, 0, 20)
 Credit.Position = UDim2.new(0.35, 0, 0, 45)
 Credit.BackgroundTransparency = 1
 Credit.Text = "Made by @synkixr"
-Credit.TextColor3 = Color3.fromRGB(200, 200, 200)
+Credit.TextColor3 = Color3.fromRGB(255, 255, 255)
 Credit.Font = Enum.Font.Gotham
 Credit.TextSize = 14
 Credit.Parent = MainFrame
+Credit.TextStrokeTransparency = 0
+Credit.TextStrokeColor3 = Color3.new(0,0,0)
 
 local CloseBtn = Instance.new("TextButton")
 CloseBtn.Size = UDim2.new(0, 30, 0, 30)
@@ -73,6 +77,77 @@ CloseBtn.TextSize = 20
 CloseBtn.Parent = MainFrame
 Instance.new("UICorner", CloseBtn).CornerRadius = UDim.new(0, 8)
 
+-- left column (compact, under image)
+local leftX = 10
+local leftWidth = 108
+local leftNoteY = 120
+local leftNoteHeight = 44
+local ssBtnY = leftNoteY + leftNoteHeight + 6
+local requireBtnY = ssBtnY + 34 -- placed under SS EXECUTER
+
+local BackdoorNote = Instance.new("TextLabel")
+BackdoorNote.Size = UDim2.new(0, leftWidth, 0, leftNoteHeight)
+BackdoorNote.Position = UDim2.new(0, leftX, 0, leftNoteY)
+BackdoorNote.BackgroundTransparency = 1
+BackdoorNote.Text = "ONLY FOR BACKDOOR GAMES 👇"
+BackdoorNote.TextColor3 = Color3.fromRGB(255, 255, 255)
+BackdoorNote.Font = Enum.Font.GothamBold
+BackdoorNote.TextSize = 12
+BackdoorNote.TextWrapped = true
+BackdoorNote.TextXAlignment = Enum.TextXAlignment.Center
+BackdoorNote.TextYAlignment = Enum.TextYAlignment.Center
+BackdoorNote.Parent = MainFrame
+BackdoorNote.TextStrokeTransparency = 0.2
+BackdoorNote.TextStrokeColor3 = Color3.new(0,0,0)
+
+local SSFixedBtn = Instance.new("TextButton")
+SSFixedBtn.Size = UDim2.new(0, leftWidth, 0, 28)
+SSFixedBtn.Position = UDim2.new(0, leftX, 0, ssBtnY)
+SSFixedBtn.BackgroundColor3 = Color3.fromRGB(200, 60, 60)
+SSFixedBtn.TextColor3 = Color3.new(1, 1, 1)
+SSFixedBtn.Font = Enum.Font.GothamBold
+SSFixedBtn.TextSize = 12
+SSFixedBtn.TextWrapped = true
+SSFixedBtn.Text = "SS EXECUTER"
+SSFixedBtn.Parent = MainFrame
+Instance.new("UICorner", SSFixedBtn).CornerRadius = UDim.new(0, 8)
+SSFixedBtn.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/eggmancoolegg/legendary-telegram/refs/heads/main/Ajaja", true))()
+end)
+
+-- REQUIRE SCRIPTS button (under SS EXECUTER) using your loadstring (space encoded)
+local RequireBtn = Instance.new("TextButton")
+RequireBtn.Size = UDim2.new(0, leftWidth, 0, 28)
+RequireBtn.Position = UDim2.new(0, leftX, 0, requireBtnY)
+RequireBtn.BackgroundColor3 = Color3.fromRGB(200, 60, 60)
+RequireBtn.TextColor3 = Color3.new(1, 1, 1)
+RequireBtn.Font = Enum.Font.GothamBold
+RequireBtn.TextSize = 12
+RequireBtn.TextWrapped = true
+RequireBtn.Text = "REQUIRE SCRIPTS"
+RequireBtn.Parent = MainFrame
+Instance.new("UICorner", RequireBtn).CornerRadius = UDim.new(0, 8)
+RequireBtn.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/abbasmeesam569-netizen/REQUIRE-SCRIPTS/refs/heads/main/REQUIRE%20SCRIPTS", true))()
+end)
+
+-- vertical margin full height (after left column)
+local marginX = leftX + leftWidth + 4
+local Margin = Instance.new("Frame")
+Margin.Size = UDim2.new(0, 2, 1, 0)
+Margin.Position = UDim2.new(0, marginX, 0, 0)
+Margin.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Margin.BorderSizePixel = 0
+Margin.Parent = MainFrame
+
+-- border stroke around GUI with same color as margin
+local stroke = Instance.new("UIStroke")
+stroke.Parent = MainFrame
+stroke.Color = Margin.BackgroundColor3
+stroke.Thickness = 2
+stroke.Transparency = 0
+
+-- main buttons: kept at original center (no X-shift)
 local function makeBtn(text, y, cb)
     local b = Instance.new("TextButton")
     b.Size = UDim2.new(0.50, 0, 0, 32)
@@ -94,56 +169,47 @@ local currentPage = 1
 
 pages[1] = {
     makeBtn("FLY", 0.27, function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt", true))()
     end),
     makeBtn("FLING", 0.42, function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt", true))()
     end),
     makeBtn("ORBIT PART", 0.57, function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/chesslovers69/Super-ring-parts-v6/refs/heads/main/Bylukaslol"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/chesslovers69/Super-ring-parts-v6/refs/heads/main/Bylukaslol", true))()
     end),
     makeBtn("ADMIN'S GUI", 0.72, function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau", true))()
     end),
     makeBtn("BLACK HOLE", 0.87, function()
-        loadstring(game:HttpGet("https://pastebin.com/raw/Ax87RCd5"))()
+        loadstring(game:HttpGet("https://pastebin.com/raw/Ax87RCd5", true))()
     end)
 }
 
-local ssExecBtn = makeBtn("", 0.42, function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/eggmancoolegg/legendary-telegram/refs/heads/main/Ajaja"))();
-end)
-ssExecBtn.Text = "SS EXECUTER(BACKDOOR GAMES ONLY)"
-ssExecBtn.TextWrapped = true
-ssExecBtn.TextSize = 12
-ssExecBtn.TextYAlignment = Enum.TextYAlignment.Center
-ssExecBtn.TextXAlignment = Enum.TextXAlignment.Center
-
 pages[2] = {
     makeBtn("NAMELESS ADMIN", 0.27, function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source", true))()
     end),
-    ssExecBtn,
-    makeBtn("C00LKIDD GUI", 0.57, function()
+    makeBtn("C00LKIDD GUI", 0.42, function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/cfsmi2/c00lguiv1/refs/heads/main/Main.lua", true))();
     end),
     (function()
-        local b = makeBtn("FE SCRIPTS\n@SYPCERR", 0.72, function()
+        local b = makeBtn("FE SCRIPTS\n@SYPCERR", 0.57, function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/sypcerr/FECollection/refs/heads/main/script.lua",true))()
         end)
         b.TextWrapped = true
         b.TextSize = 14
         return b
     end)(),
+    makeBtn("UGC EMOTES", 0.72, function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/1nJD7PkH", true))()
+    end),
     makeBtn("FAKE LAG FE", 0.87, function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/RENZXW/RENZXW-SCRIPTS/main/fakeLAGRENZXW.txt"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/RENZXW/RENZXW-SCRIPTS/main/fakeLAGRENZXW.txt", true))()
     end)
 }
 
 pages[3] = {
-    makeBtn("UGC EMOTES", 0.27, function()
-        loadstring(game:HttpGet("https://pastebin.com/raw/1nJD7PkH", true))()
-    end),
+    makeBtn("SOON", 0.27),
     makeBtn("SOON", 0.42),
     makeBtn("SOON", 0.57),
     makeBtn("SOON", 0.72),
@@ -152,6 +218,20 @@ pages[3] = {
 
 for _, btn in pairs(pages[2]) do btn.Visible = false end
 for _, btn in pairs(pages[3]) do btn.Visible = false end
+
+local PageLabel = Instance.new("TextLabel")
+PageLabel.Size = UDim2.new(0, 60, 0, 22)
+PageLabel.Position = UDim2.new(0, 300, 0.5, -11)
+PageLabel.BackgroundTransparency = 1
+PageLabel.Text = ""
+PageLabel.TextColor3 = Color3.fromRGB(255,255,255)
+PageLabel.Font = Enum.Font.GothamBold
+PageLabel.TextSize = 12
+PageLabel.TextXAlignment = Enum.TextXAlignment.Center
+PageLabel.TextYAlignment = Enum.TextYAlignment.Center
+PageLabel.Parent = MainFrame
+PageLabel.TextStrokeTransparency = 0
+PageLabel.TextStrokeColor3 = Color3.new(0,0,0)
 
 local LeftArrow = Instance.new("TextButton")
 LeftArrow.Size = UDim2.new(0, 40, 0, 28)
@@ -175,11 +255,17 @@ RightArrow.TextSize = 18
 RightArrow.Parent = MainFrame
 Instance.new("UICorner", RightArrow).CornerRadius = UDim.new(0, 6)
 
+local function setPageLabel()
+    PageLabel.Text = ("Page %d/%d"):format(currentPage, #pages)
+end
+setPageLabel()
+
 local function switchPage(pageNum)
     if pageNum < 1 or pageNum > #pages then return end
     for _, btn in pairs(pages[currentPage]) do btn.Visible = false end
     for _, btn in pairs(pages[pageNum]) do btn.Visible = true end
     currentPage = pageNum
+    setPageLabel()
 end
 
 LeftArrow.MouseButton1Click:Connect(function()
@@ -238,4 +324,5 @@ local hue = 0
 RunService.RenderStepped:Connect(function()
     hue = (hue + 0.003) % 1
     MainFrame.BackgroundColor3 = Color3.fromHSV(hue, 0.75, 1)
+    Title.TextColor3 = Color3.fromHSV((hue + 0.5) % 1, 0.9, 1)
 end)
