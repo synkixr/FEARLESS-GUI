@@ -115,7 +115,7 @@ SSFixedBtn.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/eggmancoolegg/legendary-telegram/refs/heads/main/Ajaja", true))()
 end)
 
--- REQUIRE SCRIPTS button (under SS EXECUTER) using your loadstring (space encoded)
+-- REQUIRE SCRIPTS button (under SS EXECUTER) using the new synkixr loadstring
 local RequireBtn = Instance.new("TextButton")
 RequireBtn.Size = UDim2.new(0, leftWidth, 0, 28)
 RequireBtn.Position = UDim2.new(0, leftX, 0, requireBtnY)
@@ -128,7 +128,7 @@ RequireBtn.Text = "REQUIRE SCRIPTS"
 RequireBtn.Parent = MainFrame
 Instance.new("UICorner", RequireBtn).CornerRadius = UDim.new(0, 8)
 RequireBtn.MouseButton1Click:Connect(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/abbasmeesam569-netizen/REQUIRE-SCRIPTS/refs/heads/main/REQUIRE%20SCRIPTS", true))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/synkixr/REQUIRE-SCRIPTS/refs/heads/main/REQUIRE%20SCRIPTS", true))()
 end)
 
 -- vertical margin full height (after left column)
@@ -194,7 +194,7 @@ pages[2] = {
     end),
     (function()
         local b = makeBtn("FE SCRIPTS\n@SYPCERR", 0.57, function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/sypcerr/FECollection/refs/heads/main/script.lua",true))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/sypcerr/FECollection/refs/heads/main/script.lua", true))()
         end)
         b.TextWrapped = true
         b.TextSize = 14
