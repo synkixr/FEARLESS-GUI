@@ -56,7 +56,7 @@ Title.TextStrokeColor3 = Color3.new(0,0,0)
 
 local Credit = Instance.new("TextLabel")
 Credit.Size = UDim2.new(0.6, 0, 0, 20)
-Credit.Position = UDim2.new(0.35, 0, 0, 45)
+Credit.Position = UDim2.new(0.35, 0, 0, 38)
 Credit.BackgroundTransparency = 1
 Credit.Text = "Made by @synkixr"
 Credit.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -65,6 +65,18 @@ Credit.TextSize = 14
 Credit.Parent = MainFrame
 Credit.TextStrokeTransparency = 0
 Credit.TextStrokeColor3 = Color3.new(0,0,0)
+
+local FeScriptsNote = Instance.new("TextLabel")
+FeScriptsNote.Size = UDim2.new(0.6, 0, 0, 10)
+FeScriptsNote.Position = UDim2.new(0.35, 0, 0, 60)
+FeScriptsNote.BackgroundTransparency = 1
+FeScriptsNote.Text = "FE SCRIPTS 👇"
+FeScriptsNote.TextColor3 = Color3.fromRGB(255, 255, 255)
+FeScriptsNote.Font = Enum.Font.GothamBold
+FeScriptsNote.TextSize = 11
+FeScriptsNote.Parent = MainFrame
+FeScriptsNote.TextStrokeTransparency = 0
+FeScriptsNote.TextStrokeColor3 = Color3.new(0,0,0)
 
 local CloseBtn = Instance.new("TextButton")
 CloseBtn.Size = UDim2.new(0, 30, 0, 30)
@@ -77,13 +89,12 @@ CloseBtn.TextSize = 20
 CloseBtn.Parent = MainFrame
 Instance.new("UICorner", CloseBtn).CornerRadius = UDim.new(0, 8)
 
--- left column (compact, under image)
 local leftX = 10
 local leftWidth = 108
 local leftNoteY = 120
 local leftNoteHeight = 44
 local ssBtnY = leftNoteY + leftNoteHeight + 6
-local requireBtnY = ssBtnY + 34 -- placed under SS EXECUTER
+local requireBtnY = ssBtnY + 34
 
 local BackdoorNote = Instance.new("TextLabel")
 BackdoorNote.Size = UDim2.new(0, leftWidth, 0, leftNoteHeight)
@@ -115,7 +126,6 @@ SSFixedBtn.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/eggmancoolegg/legendary-telegram/refs/heads/main/Ajaja", true))()
 end)
 
--- REQUIRE SCRIPTS button (under SS EXECUTER) using the new synkixr loadstring
 local RequireBtn = Instance.new("TextButton")
 RequireBtn.Size = UDim2.new(0, leftWidth, 0, 28)
 RequireBtn.Position = UDim2.new(0, leftX, 0, requireBtnY)
@@ -131,7 +141,6 @@ RequireBtn.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/synkixr/REQUIRE-SCRIPTS/refs/heads/main/REQUIRE%20SCRIPTS", true))()
 end)
 
--- vertical margin full height (after left column)
 local marginX = leftX + leftWidth + 4
 local Margin = Instance.new("Frame")
 Margin.Size = UDim2.new(0, 2, 1, 0)
@@ -140,14 +149,12 @@ Margin.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 Margin.BorderSizePixel = 0
 Margin.Parent = MainFrame
 
--- border stroke around GUI with same color as margin
 local stroke = Instance.new("UIStroke")
 stroke.Parent = MainFrame
 stroke.Color = Margin.BackgroundColor3
 stroke.Thickness = 2
 stroke.Transparency = 0
 
--- main buttons: kept at original center (no X-shift)
 local function makeBtn(text, y, cb)
     local b = Instance.new("TextButton")
     b.Size = UDim2.new(0.50, 0, 0, 32)
@@ -172,7 +179,7 @@ pages[1] = {
         loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt", true))()
     end),
     makeBtn("FLING", 0.42, function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt", true))()
+        loadstring(game:HttpGet("https://pastebin.com/raw/VynRhxJV"))()
     end),
     makeBtn("ORBIT PART", 0.57, function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/chesslovers69/Super-ring-parts-v6/refs/heads/main/Bylukaslol", true))()
@@ -200,7 +207,7 @@ pages[2] = {
         b.TextSize = 14
         return b
     end)(),
-    makeBtn("UGC EMOTES", 0.72, function()
+    makeBtn("EMOTES(R15)", 0.72, function()
         loadstring(game:HttpGet("https://pastebin.com/raw/1nJD7PkH", true))()
     end),
     makeBtn("FAKE LAG FE", 0.87, function()
@@ -209,7 +216,9 @@ pages[2] = {
 }
 
 pages[3] = {
-    makeBtn("SOON", 0.27),
+    makeBtn("INF YIELD", 0.27, function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+    end),
     makeBtn("SOON", 0.42),
     makeBtn("SOON", 0.57),
     makeBtn("SOON", 0.72),
