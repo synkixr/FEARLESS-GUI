@@ -219,7 +219,9 @@ pages[3] = {
 makeBtn("INF YIELD", 0.27, function()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 end),
-makeBtn("SOON", 0.42),
+makeBtn("POLARIA HUB", 0.42, function()
+loadstring(game:HttpGet("https://pastefy.app/JmaD2ivk/raw", true))()
+end),
 makeBtn("SOON", 0.57),
 makeBtn("SOON", 0.72),
 makeBtn("SOON", 0.87)
