@@ -1,0 +1,118 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+local prev = PlayerGui:FindFirstChild("KeySystem_GUI")
+if prev then prev:Destroy() end
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "KeySystem_GUI"
+ScreenGui.Parent = PlayerGui
+ScreenGui.ResetOnSpawn = false
+
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0, 250, 0, 170)
+Frame.Position = UDim2.new(0.5, -125, 0.5, -85)
+Frame.BackgroundTransparency = 0.3
+Frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
+Frame.Active = true
+Frame.Draggable = true
+Frame.Parent = ScreenGui
+
+local UICorner = Instance.new("UICorner", Frame)
+UICorner.CornerRadius = UDim.new(0, 12)
+
+local Title = Instance.new("TextLabel")
+Title.Text = "FEARLESS KEY SYSTEM 🔑"
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.BackgroundColor3 = Color3.fromRGB(50,50,50)
+Title.TextColor3 = Color3.fromRGB(255,255,255)
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 18
+Title.Parent = Frame
+local UICornerTitle = Instance.new("UICorner", Title)
+UICornerTitle.CornerRadius = UDim.new(0, 12)
+
+local TextBox = Instance.new("TextBox")
+TextBox.Name = "EnterKey"
+TextBox.PlaceholderText = "ENTER KEY"
+TextBox.Text = ""
+TextBox.ClearTextOnFocus = true
+TextBox.Size = UDim2.new(0.9, 0, 0, 30)
+TextBox.Position = UDim2.new(0.05, 0, 0.28, 0)
+TextBox.BackgroundColor3 = Color3.fromRGB(40,40,40)
+TextBox.TextColor3 = Color3.fromRGB(255,255,255)
+TextBox.Font = Enum.Font.SourceSans
+TextBox.TextSize = 16
+TextBox.Parent = Frame
+local UICornerBox = Instance.new("UICorner", TextBox)
+UICornerBox.CornerRadius = UDim.new(0, 8)
+
+local Button = Instance.new("TextButton")
+Button.Text = "SUBMIT KEY"
+Button.Size = UDim2.new(0.9, 0, 0, 30)
+Button.Position = UDim2.new(0.05, 0, 0.55, 0)
+Button.BackgroundColor3 = Color3.fromRGB(0,200,100)
+Button.TextColor3 = Color3.fromRGB(255,255,255)
+Button.Font = Enum.Font.SourceSansBold
+Button.TextSize = 16
+Button.Parent = Frame
+local UICornerBtn = Instance.new("UICorner", Button)
+UICornerBtn.CornerRadius = UDim.new(0, 8)
+
+local DiscordButton = Instance.new("TextButton")
+DiscordButton.Text = "JOIN DISCORD FOR KEY"
+DiscordButton.Size = UDim2.new(0.9, 0, 0, 30)
+DiscordButton.Position = UDim2.new(0.05, 0, 0.75, 0)
+DiscordButton.BackgroundColor3 = Color3.fromRGB(0,120,255)
+DiscordButton.TextColor3 = Color3.fromRGB(255,255,255)
+DiscordButton.Font = Enum.Font.SourceSansBold
+DiscordButton.TextSize = 16
+DiscordButton.Parent = Frame
+local UICornerDisc = Instance.new("UICorner", DiscordButton)
+UICornerDisc.CornerRadius = UDim.new(0, 8)
+
+local Status = Instance.new("TextLabel")
+Status.Text = ""
+Status.Size = UDim2.new(1, 0, 0, 25)
+Status.Position = UDim2.new(0,0,0.9,0)
+Status.BackgroundTransparency = 1
+Status.TextColor3 = Color3.fromRGB(255,100,100)
+Status.Font = Enum.Font.SourceSansBold
+Status.TextSize = 14
+Status.Parent = Frame
+
+local CorrectKey = "\83\72\65\82\69\75\69\89\73\70\89\79\85\65\82\69\71\65\89"
+local ScriptToLoad = "\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\115\121\110\107\105\120\114\47\70\69\65\82\76\69\83\83\45\67\72\65\84\45\66\89\80\65\83\83\47\114\101\102\115\47\104\101\97\100\115\47\109\97\105\110\47\102\101\97\114\108\101\115\115\99\104\97\116\98\121\112\97\115\115\46\116\120\116\34\41\41\40\41"
+
+local savedKey = getgenv().savedFearlessKey or nil
+local DiscordLink = "https://discord.gg/aufpfrQ5"
+
+if savedKey and savedKey ~= "" then
+    TextBox.Text = savedKey
+end
+
+Button.MouseButton1Click:Connect(function()
+    if TextBox.Text == CorrectKey then
+        getgenv().savedFearlessKey = TextBox.Text
+        Status.Text = "✅ Correct Key!"
+        Status.TextColor3 = Color3.fromRGB(100,255,100)
+        wait(0.5)
+        Frame:Destroy()
+        loadstring(ScriptToLoad)()
+    else
+        Status.Text = "❌ Wrong Key!"
+        Status.TextColor3 = Color3.fromRGB(255,100,100)
+    end
+end)
+
+DiscordButton.MouseButton1Click:Connect(function()
+    if setclipboard then
+        setclipboard(DiscordLink)
+        Status.Text = "📋 Discord link copied!"
+        Status.TextColor3 = Color3.fromRGB(100,200,255)
+    else
+        Status.Text = "⚠️ Cannot copy link"
+        Status.TextColor3 = Color3.fromRGB(255,200,0)
+    end
+end)
