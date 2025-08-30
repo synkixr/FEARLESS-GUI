@@ -18,7 +18,6 @@ Frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
 Frame.Active = true
 Frame.Draggable = true
 Frame.Parent = ScreenGui
-
 Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 12)
 
 local Title = Instance.new("TextLabel")
@@ -93,24 +92,14 @@ local function b64d(data)
     end))
 end
 
-local function unshift(s,k)
-    local t = {}
-    for i=1,#s do
-        local b = string.byte(s,i)
-        t[i] = string.char((b - k) % 256)
-    end
-    return table.concat(t)
-end
+local EncKey = "S2V5Njk2OTY5ZmVhcmxlc3M="
+local EncScript = "bG9hZHN0cmluZyhnYW1lOkh0dHBHZXQoImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9zeW5raXhyL0ZFQVJMRVNTLUNIQVQtQllQQVNTL3JlZnMvaGVhZHMvbWFpbi9mZWFybGVzc2NoYXRieXBhc3Nsb2wudHh0IikpKCk="
 
-local encKey = "gndwgXR6dIh4dYh+hHCBdHZwiA=="
-local encLoad = "m56Qk6KjoZidlleWkJyUaXejo592lKNXUZejo5+iaV5eoZCmXZaYo5ekkaSilKGSnp2jlJ2jXZKenF6iqJ2amKehXnV0cIF7dIKCXHJ3cINccYh/cIKCXqGUlaJel5SQk6JenJCYnV6VlJChm5SiopKXkKORqJ+QoqKbnptdo6ejUVhYV1g="
-local shift = 47
-
-local CorrectKey = unshift(b64d(encKey), shift)
-local ScriptToLoad = unshift(b64d(encLoad), shift)
+local CorrectKey = b64d(EncKey)
+local ScriptToLoad = b64d(EncScript)
 
 local savedKey = getgenv().savedFearlessKey or nil
-local DiscordLink = "https://discord.gg/aufpfrQ5"
+local DiscordLink = "https://discord.gg/p8t7YnArfd"
 
 if savedKey and savedKey ~= "" then
     TextBox.Text = savedKey
@@ -123,7 +112,7 @@ Button.MouseButton1Click:Connect(function()
         Status.TextColor3 = Color3.fromRGB(100,255,100)
         task.wait(0.5)
         Frame:Destroy()
-        loadstring(ScriptToLoad)()
+        pcall(function() loadstring(ScriptToLoad)() end)
     else
         Status.Text = "❌ Wrong Key!"
         Status.TextColor3 = Color3.fromRGB(255,100,100)
@@ -133,10 +122,7 @@ end)
 DiscordButton.MouseButton1Click:Connect(function()
     if setclipboard then
         setclipboard(DiscordLink)
-        Status.Text = "📋 Discord link copied!"
-        Status.TextColor3 = Color3.fromRGB(100,200,255)
-    else
-        Status.Text = "⚠️ Cannot copy link"
-        Status.TextColor3 = Color3.fromRGB(255,200,0)
     end
+    Status.Text = "📋 Discord link copied!"
+    Status.TextColor3 = Color3.fromRGB(100,200,255)
 end)
